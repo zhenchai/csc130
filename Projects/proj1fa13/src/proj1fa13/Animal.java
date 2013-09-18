@@ -3,118 +3,122 @@ package proj1fa13;
 import java.util.ArrayList;
 import java.util.Random;
 
-/* Write a Java program to simulate an ecosystem containing two types of creatures,
- * bears and fish. The ecosys consists of a river, which is modeled as a relatively
- * large array. Each cell of the array should contain an Animal obj, which can be a 
- * Bear object or a Fish object, or null. In each time step, bears and fish attempt 
- * to move into adj array cells or tey can stay where they are at random. If two 
- * animals of the same type are about to collide in the same cell, then they stay 
- * where they are but they create a new instance of that type of animal, placed 
- * randomly in the array. If a bear and a fish collide, the fish dies. Use actual 
- * obj creation via the new operator to model the creation of new objects, and 
- * provide a visualization of the array after each time step.
- * 
- * Write a simulator as in the previous proj, but add a Boolean gender field and a
- * floating-point strength field to each Animal obj. Now, if two animals of the same 
- * type try to collide, then they only create a new instance of that type of animal
- * if they are of different genders. Otherwise, if two animals of the same type and 
- * gender try to collide, then only the one of larger strength survives.
- */
 
 public class Animal {
-	private boolean  type; 		       // Bear: true, Fish: false
 	private boolean  gender; 	       // Male: true, Female: false
-	private int  	 position;	       // Index in river array: 0 to 19
-	private float 	 strength;         // Strength: 0 to 99.99
+	private float 	 strength;         // Strength: 0 to 99.999
 	
 	// Accessor methods
-	public boolean getType()     { return type; }
 	public boolean getGender()   { return gender; }
 	public float   getStrength() { return strength; }
-	public int     getPosition() { return position; }
 	
 	Random rng = new Random();
-	Animal[] river = new Animal[20];
 	ArrayList<Integer> emptyIndices = new ArrayList<Integer>();
+	public static Animal[] river = new Animal[20]; // To avoid changing river clones
 
 	public Animal()
-	{		
-		type     = rng.nextBoolean();
+	{	
 		gender   = rng.nextBoolean();
 		strength = rng.nextFloat() * 100;
-		position = findEmpty();  
-	}
-	
-	public Animal(boolean t)
-	{
-		type     = t;
-		gender   = rng.nextBoolean();
-		strength = rng.nextFloat() * 100;
-		position = findEmpty(); 
 	}
 	
 	// Populates river with animals at start
 	public void populateRiver()
 	{
-		while(emptyIndices.size() != 10) // 10 animal requirement at start
+		while (emptyIndices.size() != 10) // 10 animal requirement at start
 		{
-			river[rng.nextInt(20)] = new Animal();
+			switch (rng.nextInt(3))
+			{
+				case 0:
+					river[rng.nextInt(20)] = new Bear();
+					break;
+				case 1:
+					river[rng.nextInt(20)] = new Fish();
+					break;
+				default:
+					river[rng.nextInt(20)] = null;
+			}
 			findEmpty();
 		}
 	}
 	
-	// Makes the appropiate animal object and spawns it in the river
-	public void spawn(boolean type)
+	// Makes a bear/fish and spawns it in an empty index
+	// 1 = bear, rest = fish
+	public void spawn(int type)
 	{
-		if(type) 
-			river[findEmpty()] = new Animal(type);
+		if (type == 1)
+		{
+			river[findEmpty()] = new Bear();
+		}
 		else
-			river[findEmpty()] = new Animal(type);
+		{
+			river[findEmpty()] = new Fish();
+		}
 	}
 	
-	/* Return an int indicating encounter
-	public int move()
+	// Return a random int representing direction based on index
+	public int moveDirection(int index)
 	{
-		for(int i = 0; i < 20; i++)
+		switch (index)
 		{
-			
+			case 0:
+				return rng.nextInt(2); // 0, 1
+			case 19:
+				return rng.nextInt(2)-1; // -1, 0
+			default:
+				return rng.nextInt(3)-1; // -1, 0, 1
+		}	
+	}
+	
+	// No implementation necessary
+	public void move(int index){};
+	
+	// Iterate through river and move all animals once
+	public void moveAll()
+	{
+		for (int i = 0; i < 20; i++)
+		{
+			if (river[i] != null)
+			{
+				river[i].move(i);
+			}
 		}
-	} */
+	}
 	
 	// Return a random empty index
 	public int findEmpty()
 	{
 		emptyIndices.clear();
-		for(int i = 0; i < 20; i++)
+		for (int i = 0; i < 20; i++)
 		{
-			if(river[i] == null)
+			if (river[i] == null)
 				emptyIndices.add(i);
 		}
-		return (int) emptyIndices.get(rng.nextInt(emptyIndices.size()));
+		
+		if (emptyIndices.size() != 0){
+			return (int) emptyIndices.get(rng.nextInt(emptyIndices.size()));
+		}
+		else
+			return -1;
 	}
 	
 	public void currentRiverInfo()
 	{
-		for(int i = 0; i < 20; i++)
+		for (int i = 0; i < 20; i++)
 		{
-			String output;
-			if(river[i] != null)
+			String output = "";
+			String animalType = "Fish";
+			String genderType = "F";
+			
+			if (river[i] != null)
 			{
-				String animal = "Fish";
-				String gender = "F";
-				if(river[i].getType())
-				{
-					animal = "Bear";
-				}
-				if(river[i].getGender())
-				{
-					gender = "M";
-				}
-			    output = String.format("Index %d: %s (Gender: %s | Strength: %.3f)", i, animal, gender, river[i].getStrength());
+				if (river[i].getGender() == false) { genderType = "M"; }
+				if (river[i] instanceof Bear) { animalType = "Bear"; }
+			    output = String.format("Index %d: %s (Gender: %s | Strength: %.3f)", i, animalType, genderType, river[i].getStrength());
 			}
 			else
 			{
-				output = String.format("Index %d: Nothing", i);
+				output = String.format("Index %d: ", i);
 			}
 			System.out.println(output);
 		}
