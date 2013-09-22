@@ -13,7 +13,7 @@ public class Bear extends Animal {
 	
 	/**
 	 * Overrides move() in Animal. Checks for encounters and 
-	 * provides the JOptionPane output accordingly.
+	 * provides the output accordingly.
 	 * 
 	 * @param index the current index of the bear being moved
 	 */

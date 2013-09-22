@@ -101,7 +101,6 @@ public class Animal {
 	 * nextGender are also initialized.
 	 * 
 	 * @param index the current index of the animal being moved
-	 * @return      the string log of all movements and encounters
 	 */
 	public void move(int index)
 	{
@@ -153,6 +152,7 @@ public class Animal {
 		else
 			return -1;
 	}
+	
 	
 	/**
 	 * Iterates through river once and prints out each 

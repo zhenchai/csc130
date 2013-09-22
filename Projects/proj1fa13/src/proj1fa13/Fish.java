@@ -3,8 +3,8 @@ package proj1fa13;
 public class Fish extends Animal {
 	
 	/**
-	 * Default constructor of Fish class. Each fish is
-	 * generated with a random gender and strength.
+	 * Default constructor of Fish class. Each fish is generated
+	 * with a random gender and strength.
 	 */
 	public Fish()
 	{
@@ -13,7 +13,7 @@ public class Fish extends Animal {
 	
 	/**
 	 * Overrides move() in Animal. Checks for encounters and 
-	 * provides the JOptionPane output accordingly.
+	 * provides the output accordingly.
 	 * 
 	 * @param index the current index of the fish being moved
 	 */
@@ -29,7 +29,6 @@ public class Fish extends Animal {
 			}
 			else if (indexStr >= nextStr)
 			{
-				
 				river[nextSpot] = river[index];
 				moveOutput += "Fish at [" + index + "] defeated fish at [" + nextSpot + "]\n";
 				river[index] = null;

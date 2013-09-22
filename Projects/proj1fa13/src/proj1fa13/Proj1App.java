@@ -16,6 +16,7 @@ public class Proj1App
 		String[] riverLog = new String[10];
 		String[] moveLog  = new String[10];
 		String fullLog = "";
+		
 		// Log everything and organize it by days
 		for (int i = 0; i < 10; i++)
 		{
@@ -24,6 +25,7 @@ public class Proj1App
 		  anim.moveAll();
 		}
 		
+		// Full log output layout
 		for (int i = 0; i < 10; i++)
 		{
 			fullLog += "Day " + (i + 1) + "\n----Movement/Encounters Log----\n\n" + moveLog[i] + 
@@ -31,7 +33,8 @@ public class Proj1App
 					                      "\n-----------------------------\n";
 		}
 		
-		String[] choices = {"View river snapshots", "View log snapshots", "View full log", "Quit"};
+		// Main menu
+		String[] choices = {"View river snapshots", "View activity snapshots", "View full log", "Quit"};
 		int choice = JOptionPane.showOptionDialog(null,
 				"A 10 day river scenario has been generated. Please select an option.", 			
 				"River Simulator",         
@@ -45,7 +48,7 @@ public class Proj1App
 		{
 			switch (choice)
 			{
-			case 0:
+			case 0: // Individual river snapshots option
 				int dayChoice = JOptionPane.showOptionDialog(null,
 		                "Which day's river snapshot would you like to view?",
 		                "River Simulator",
@@ -65,7 +68,7 @@ public class Proj1App
 						JOptionPane.DEFAULT_OPTION);
 				break;
 				
-			case 1:
+			case 1: // Individual activity logs option
 				int logChoice = JOptionPane.showOptionDialog(null,
 		                "Which day's movement/encounters log would you like to view?",
 		                "River Simulator",
@@ -85,7 +88,7 @@ public class Proj1App
 						JOptionPane.DEFAULT_OPTION);
 				break;
 				
-			case 2:
+			case 2: // Full log option
 				JTextArea text2 = new JTextArea(50,40);
 				JScrollPane scroll2 = new JScrollPane(text2);
 				text2.setText(fullLog);
@@ -95,6 +98,7 @@ public class Proj1App
 						"River Simulator",
 						JOptionPane.DEFAULT_OPTION);
 			}// end switch
+			
 			choice = JOptionPane.showOptionDialog(null,
 					"A 10 day river scenario has been generated. Please select an option.", 			
 					"River Simulator",         
