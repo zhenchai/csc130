@@ -1,6 +1,8 @@
 package proj1fa13;
 
-import java.util.Scanner;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class Proj1App 
 {
@@ -10,21 +12,97 @@ public class Proj1App
 		
 		Animal anim = new Animal();
 		anim.populateRiver();
-		Scanner sc = new Scanner(System.in);
-		System.out.println("A randomly populated river was generated.\n");
-		anim.currentRiverInfo();
-
-		// 10 iterations
+		String[] days = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+		String[] riverLog = new String[10];
+		String[] moveLog  = new String[10];
+		String fullLog = "";
+		// Log everything and organize it by days
 		for (int i = 0; i < 10; i++)
 		{
-			System.out.println("\nDay " + (i + 1) + " has begun.\n");
-			anim.moveAll();
-			System.out.println("");
-			anim.currentRiverInfo();
-			System.out.println("\nNight falls. End of day " + (i + 1) + "\n");
-			System.out.println("\n Enter any key to continue.");
-			sc.next();
+		  moveLog[i] = Animal.moveOutput;
+		  riverLog[i] = anim.currentRiverInfo();
+		  anim.moveAll();
 		}
 		
+		for (int i = 0; i < 10; i++)
+		{
+			fullLog += "Day " + (i + 1) + "\n----Movement/Encounters Log----\n\n" + moveLog[i] + 
+										  "\n---------River Snapshot---------\n" + riverLog[i] +  
+					                      "\n-----------------------------\n";
+		}
+		
+		String[] choices = {"View river snapshots", "View log snapshots", "View full log", "Quit"};
+		int choice = JOptionPane.showOptionDialog(null,
+				"A 10 day river scenario has been generated. Please select an option.", 			
+				"River Simulator",         
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				choices,                			
+				choices[0]); 
+		
+		while (choice != 3)
+		{
+			switch (choice)
+			{
+			case 0:
+				int dayChoice = JOptionPane.showOptionDialog(null,
+		                "Which day's river snapshot would you like to view?",
+		                "River Simulator",
+		                JOptionPane.DEFAULT_OPTION,
+		                JOptionPane.QUESTION_MESSAGE,
+		                null,
+		                days,
+		                days[0]);
+				
+				JTextArea text = new JTextArea(21,30);
+				JScrollPane scroll = new JScrollPane(text);
+				text.setText(riverLog[dayChoice]);
+				JOptionPane.showMessageDialog(
+						null,
+						scroll,
+						"River Simulator",
+						JOptionPane.DEFAULT_OPTION);
+				break;
+				
+			case 1:
+				int logChoice = JOptionPane.showOptionDialog(null,
+		                "Which day's movement/encounters log would you like to view?",
+		                "River Simulator",
+		                JOptionPane.DEFAULT_OPTION,
+		                JOptionPane.QUESTION_MESSAGE,
+		                null,
+		                days,
+		                days[0]);
+				
+				JTextArea text1 = new JTextArea(15,30);
+				JScrollPane scroll1 = new JScrollPane(text1);
+				text1.setText(moveLog[logChoice]);
+				JOptionPane.showMessageDialog(
+						null,
+						scroll1,
+						"River Simulator",
+						JOptionPane.DEFAULT_OPTION);
+				break;
+				
+			case 2:
+				JTextArea text2 = new JTextArea(50,40);
+				JScrollPane scroll2 = new JScrollPane(text2);
+				text2.setText(fullLog);
+				JOptionPane.showMessageDialog(
+						null,
+						scroll2,
+						"River Simulator",
+						JOptionPane.DEFAULT_OPTION);
+			}// end switch
+			choice = JOptionPane.showOptionDialog(null,
+					"A 10 day river scenario has been generated. Please select an option.", 			
+					"River Simulator",         
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null,
+					choices,                			
+					choices[0]); 
+		}// end while
 	}
 }

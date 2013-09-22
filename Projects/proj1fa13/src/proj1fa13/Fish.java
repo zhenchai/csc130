@@ -1,50 +1,59 @@
 package proj1fa13;
 
 public class Fish extends Animal {
-
+	
+	/**
+	 * Default constructor of Fish class. Each fish is
+	 * generated with a random gender and strength.
+	 */
 	public Fish()
 	{
 		super();
 	}
 	
+	/**
+	 * Overrides move() in Animal. Checks for encounters and 
+	 * provides the JOptionPane output accordingly.
+	 * 
+	 * @param index the current index of the fish being moved
+	 */
 	public void move(int index)
 	{
-		int nextSpot = index + moveDirection(index);
+		super.move(index);
 		if ((river[nextSpot] instanceof Fish) && (nextSpot != index))
-		{
-			float indexStr = river[index].getStrength();
-			float nextStr = river[nextSpot].getStrength();
-			boolean indexGender = river[index].getGender();
-			boolean nextGender = river[nextSpot].getGender();
-			
+		{	
 			if ((indexGender != nextGender) && (findEmpty() != -1))
 			{
 				spawn(2);
-				System.out.println("Another fish has spawned.");
+				moveOutput += "Fish at [" + index + "] and [" + nextSpot + "] spawned a new fish.\n";
 			}
 			else if (indexStr >= nextStr)
 			{
 				
 				river[nextSpot] = river[index];
-				System.out.println("Fish at [" + index + "] defeated fish at [" + nextSpot + "]");
+				moveOutput += "Fish at [" + index + "] defeated fish at [" + nextSpot + "]\n";
 				river[index] = null;
 			}
 			else
 			{
-				System.out.println("Fish at [" + index + "] was killed by fish at [" + nextSpot + "]");
+				moveOutput += "Fish at [" + index + "] was killed by fish at [" + nextSpot + "]\n";
 				river[index] = null;
 			}
 		}
 		else if (river[nextSpot] instanceof Bear)
 		{
-			System.out.println("Fish at [" + index + "] swam to bear at [" + nextSpot + "] and was eaten.");
+			moveOutput += "Fish at [" + index + "] swam to bear at [" + nextSpot + "] and was eaten.\n";
 			river[index] = null;
 		}
 		else if (nextSpot != index)
 		{
-			System.out.println("Fish at [" + index + "] traveled to [" + nextSpot + "].");
+			moveOutput += "Fish at [" + index + "] traveled to [" + nextSpot + "].\n";
 			river[nextSpot] = river[index];
 			river[index] = null;
 		}
+		else
+		{
+			moveOutput += "Fish at [" + index + "] did not move.\n";
+		}		
 	}
 }

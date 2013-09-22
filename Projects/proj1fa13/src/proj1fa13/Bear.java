@@ -2,42 +2,47 @@ package proj1fa13;
 
 public class Bear extends Animal {
 	
+	/**
+	 * Default constructor of Bear class. Each bear is generated
+	 * with a random gender and strength.
+	 */
 	public Bear()
 	{
 		super();
 	}
 	
+	/**
+	 * Overrides move() in Animal. Checks for encounters and 
+	 * provides the JOptionPane output accordingly.
+	 * 
+	 * @param index the current index of the bear being moved
+	 */
 	public void move(int index)
 	{
-		int nextSpot = index + moveDirection(index);
+		super.move(index);
 		if ((river[nextSpot] instanceof Bear) && (nextSpot != index))
-		{
-			float indexStr = river[index].getStrength();
-			float nextStr = river[nextSpot].getStrength();
-			boolean indexGender = river[index].getGender();
-			boolean nextGender = river[nextSpot].getGender();
-			
-			// Do not spawn more if river is full
+		{	
+			// Prevent spawning if river is full
 			if ((indexGender != nextGender) && (findEmpty() != -1))
 			{
 				spawn(1);
-				System.out.println("Another bear has spawned.");
+				moveOutput += "Bears at [" + index + "] and [" + nextSpot + "] spawned a new bear.\n";
 			}
 			else if (indexStr >= nextStr)
 			{
 				river[nextSpot] = river[index];
-				System.out.println("Bear at [" + index + "] defeated bear at [" + nextSpot + "].");
+				moveOutput += "Bear at [" + index + "] defeated bear at [" + nextSpot + "].\n";
 				river[index] = null;
 			}
 			else
 			{
-				System.out.println("Bear at [" + index + "] was killed by bear at [" + nextSpot + "].");
+				moveOutput += "Bear at [" + index + "] was killed by bear at [" + nextSpot + "].\n";
 				river[index] = null;
 			}
 		}
 		else if (river[nextSpot] instanceof Fish)
 		{
-			System.out.println("Bear at [" + index + "] ate fish at [" + nextSpot + "].");
+			moveOutput += "Bear at [" + index + "] ate fish at [" + nextSpot + "].\n";
 			river[nextSpot] = river[index];
 			river[index] = null;
 		}
@@ -45,7 +50,11 @@ public class Bear extends Animal {
 		{
 			river[nextSpot] = river[index];
 			river[index] = null;
-			System.out.println("Bear at [" + index + "] traveled to [" + nextSpot + "].");
+			moveOutput += "Bear at [" + index + "] traveled to [" + nextSpot + "].\n";
+		}
+		else
+		{
+			moveOutput += "Bear at [" + index + "] did not move.\n";
 		}
 	}
 }
