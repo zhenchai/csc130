@@ -23,10 +23,15 @@ public class Bear extends Animal {
 		if ((river[nextSpot] instanceof Bear) && (nextSpot != index))
 		{	
 			// Prevent spawning if river is full
-			if ((indexGender != nextGender) && (findEmpty() != -1))
+			if (indexGender != nextGender)
 			{
-				spawn(1);
-				moveOutput += "Bears at [" + index + "] and [" + nextSpot + "] spawned a new bear.\n";
+				if (findEmpty() != -1)
+				{
+					spawn(1);
+					moveOutput += "Bears at [" + index + "] and [" + nextSpot + "] spawned a new bear.\n";
+				}
+				else
+					moveOutput += "Bears at [" + index + "] and [" + nextSpot + "] could not spawn a new bear. River is full.\n";
 			}
 			else if (indexStr >= nextStr)
 			{

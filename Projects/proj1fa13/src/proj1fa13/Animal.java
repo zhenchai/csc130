@@ -168,7 +168,7 @@ public class Animal {
 			
 			if (river[i] != null)
 			{
-				if (river[i].getGender() == false) { genderType = "M"; }
+				if (river[i].getGender()) { genderType = "M"; }
 				if (river[i] instanceof Bear) { animalType = "Bear"; }
 			    output += String.format("Index %d: %s (Gender: %s | Strength: %.1f)\n", i, animalType, genderType, river[i].getStrength());
 			}

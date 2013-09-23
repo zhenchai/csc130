@@ -28,9 +28,9 @@ public class Proj1App
 		// Full log output layout
 		for (int i = 0; i < 10; i++)
 		{
-			fullLog += "Day " + (i + 1) + "\n----Movement/Encounters Log----\n\n" + moveLog[i] + 
-										  "\n---------River Snapshot---------\n" + riverLog[i] +  
-					                      "\n-----------------------------\n";
+			fullLog += "Day " + (i + 1) + "\n\n----Movement/Encounters Log----\n\n" + moveLog[i] + 
+										  "\n---------River Snapshot---------\n\n" + riverLog[i] +  
+					                      "\n-----------------------------\n\n";
 		}
 		
 		// Main menu

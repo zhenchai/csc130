@@ -22,10 +22,15 @@ public class Fish extends Animal {
 		super.move(index);
 		if ((river[nextSpot] instanceof Fish) && (nextSpot != index))
 		{	
-			if ((indexGender != nextGender) && (findEmpty() != -1))
+			if (indexGender != nextGender)
 			{
-				spawn(2);
-				moveOutput += "Fish at [" + index + "] and [" + nextSpot + "] spawned a new fish.\n";
+				if (findEmpty() != -1)
+				{
+					spawn(2);
+					moveOutput += "Fish at [" + index + "] and [" + nextSpot + "] spawned a new fish.\n";
+				}
+				else
+					moveOutput += "Fish at [" + index + "] and [" + nextSpot + "] could not spawn a new fish. River is full.\n";
 			}
 			else if (indexStr >= nextStr)
 			{
