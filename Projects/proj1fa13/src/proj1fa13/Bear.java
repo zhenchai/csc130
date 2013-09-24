@@ -20,43 +20,49 @@ public class Bear extends Animal {
 	public void move(int index)
 	{
 		super.move(index);
+		
+		// Bear encounters bear
 		if ((river[nextSpot] instanceof Bear) && (nextSpot != index))
 		{	
-			// Prevent spawning if river is full
-			if (indexGender != nextGender)
+			// 2 fish of different gender
+			if (river[index].getGender() != river[nextSpot].getGender())
 			{
+				// Prevent spawning if river is full
 				if (findEmpty() != -1)
 				{
-					spawn(1);
+					spawn(true);
 					moveOutput += "Bears at [" + index + "] and [" + nextSpot + "] spawned a new bear.\n";
 				}
+				// Randomly place new Bear into river
 				else
 					moveOutput += "Bears at [" + index + "] and [" + nextSpot + "] could not spawn a new bear. River is full.\n";
 			}
-			else if (indexStr >= nextStr)
+			// 2 bears of same gender - moving bear wins
+			else if (fight(index, nextSpot))
 			{
-				river[nextSpot] = river[index];
 				moveOutput += "Bear at [" + index + "] defeated bear at [" + nextSpot + "].\n";
-				river[index] = null;
 			}
+			// 2 bears of same gender - moving bear loses
 			else
 			{
 				moveOutput += "Bear at [" + index + "] was killed by bear at [" + nextSpot + "].\n";
-				river[index] = null;
 			}
 		}
+		// Moving into index occupied by a Fish
 		else if (river[nextSpot] instanceof Fish)
 		{
 			moveOutput += "Bear at [" + index + "] ate fish at [" + nextSpot + "].\n";
 			river[nextSpot] = river[index];
 			river[index] = null;
 		}
+		// Normal move
 		else if (nextSpot != index)
 		{
 			river[nextSpot] = river[index];
 			river[index] = null;
 			moveOutput += "Bear at [" + index + "] traveled to [" + nextSpot + "].\n";
 		}
+		// nextSpot was the same as current index
 		else
 		{
 			moveOutput += "Bear at [" + index + "] did not move.\n";

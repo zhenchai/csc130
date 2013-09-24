@@ -3,18 +3,13 @@ package proj1fa13;
 import java.util.ArrayList;
 import java.util.Random;
 
-
 public class Animal {
-	private    boolean gender; 	       			   // Male: true, Female: false
-	private    float   strength;      			   // Strength: 0 to 99.9
-	protected  int 	   nextSpot;      			   // The appropriate index for the animal's next move
-	protected  float   indexStr;      			   // Strength of current animal
-	protected  boolean indexGender;   			   // Gender of current animal
-	protected  float   nextStr;       			   // Strength of next location's animal
-	protected  boolean nextGender;    			   // Gender of next location's animal
+	private boolean gender; 	       			   		// Male: true, Female: false
+	private float   strength;      			   		    // Strength: 0 to 99.9
 	
-	protected static String moveOutput = "Initial state of river\n";
-	protected static Animal[] river = new Animal[20]; // To ensure the same river is being modified by Bear/Fish
+	protected int 	 nextSpot;      			   		// The appropriate index for the animal's next move
+	protected static String moveOutput = "Initial state of river\n";   // Stores the activity log for each iteration
+	protected static Animal[] river = new Animal[20]; 	// To ensure the same river is being modified by Bear/Fish
 	
 	// Accessor methods
 	public boolean getGender()   { return gender; }
@@ -42,14 +37,14 @@ public class Animal {
 		{
 			switch (rng.nextInt(3))
 			{
-				case 0:
-					river[rng.nextInt(20)] = new Bear();
-					break;
-				case 1:
-					river[rng.nextInt(20)] = new Fish();
-					break;
-				default:
-					river[rng.nextInt(20)] = null;
+			case 0:
+				river[rng.nextInt(20)] = new Bear();
+				break;
+			case 1:
+				river[rng.nextInt(20)] = new Fish();
+				break;
+			default:
+				river[rng.nextInt(20)] = null;
 			}
 			findEmpty(); // force emptyIndices update
 		}
@@ -59,11 +54,11 @@ public class Animal {
 	 * Creates a new Bear or Fish object as specified and 
 	 * places it in a random, unoccupied location in river.
 	 * 
-	 * @param type indicate 1 for bear, any other int for fish
+	 * @param type true for bear, false for fish
 	 */
-	public void spawn(int type)
+	public void spawn(boolean type)
 	{
-		if (type == 1)
+		if (type)
 		{
 			river[findEmpty()] = new Bear();
 		}
@@ -85,38 +80,30 @@ public class Animal {
 	{
 		switch (index)
 		{
-			case 0:
-				return rng.nextInt(2); // 0, 1
-			case 19:
-				return rng.nextInt(2)-1; // -1, 0
-			default:
-				return rng.nextInt(3)-1; // -1, 0, 1
+		case 0:
+			return rng.nextInt(2); // 0, 1
+		case 19:
+			return rng.nextInt(2)-1; // -1, 0
+		default:
+			return rng.nextInt(3)-1; // -1, 0, 1
 		}	
 	}
 	
 	/**
-	 * Default move method. Initializes the nextSpot, indexStr,
-	 * and indexGender variables for use by subclasses. If an
-	 * encounter with another animal will occur, nextStr and
-	 * nextGender are also initialized.
+	 * Default move method. Initializes the nextSpot variable for 
+	 * use by subclasses.
 	 * 
 	 * @param index the current index of the animal being moved
 	 */
 	public void move(int index)
 	{
 		nextSpot = index + moveDirection(index);
-		indexStr = river[index].getStrength();
-		indexGender = river[index].getGender();
-		if(river[nextSpot] != null)
-		{
-			nextStr = river[nextSpot].getStrength();
-			nextGender = river[nextSpot].getGender();
-		}
 	}
 	
 	/**
 	 * Iterates through river and calls move() on each animal 
-	 * object. Nulls are skipped.
+	 * object. Nulls are skipped. moveOutput is cleared each 
+	 * iteration to allow for a new log.
 	 */
 	public void moveAll()
 	{
@@ -131,8 +118,8 @@ public class Animal {
 	}
 	
 	/**
-	 * Finds all indices in river that contain null and
-	 * randomly returns one of them, if any.
+	 * Finds all indices in river that contain null, if any, 
+	 * and randomly returns one of them.
 	 * 
 	 * @return an integer representing an empty index, or -1
 	 * 		   if river is full
@@ -153,12 +140,34 @@ public class Animal {
 			return -1;
 	}
 	
-	
 	/**
-	 * Iterates through river once and prints out each 
-	 * index's current status.
+	 * Compares the strengths of two animals and updates their
+	 * positions afterwards.
+	 * 
+	 * @param index     animal at river[index]
+	 * @param nextIndex animal at river[nextSpot]
+	 * @return          true only if animal at index survives
 	 */
-	public String currentRiverInfo()
+	public boolean fight(int index, int nextIndex)
+	{
+		if (river[index].getStrength() >= river[nextIndex].getStrength())
+		{
+			river[nextIndex] = river[index];
+			river[index] = null;
+			return true;
+		}
+		else
+		{
+			river[index] = null;
+			return false;
+		}
+	}
+	 
+	/**
+	 * Iterates through river once and returns a string containing
+	 * each index's current status.
+	 */
+	public String toString()
 	{
 		String output = "";
 		for (int i = 0; i < 20; i++)

@@ -4,6 +4,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/**
+ * Title: Project 1
+ * 
+ * Description: The application class is responsible for creating an Animal object. After
+ * 10 iterations of moving all Animal objects in the river array, the user is presented with
+ * options to either view the entire log, or simply the activity log and array from each 
+ * iteration. The user is always returned to the main menu until he/she chooses to quit.
+ * 
+ * 
+ * @author Marvin Yan
+ */
 public class Proj1App 
 {
 	
@@ -21,7 +32,7 @@ public class Proj1App
 		for (int i = 0; i < 10; i++)
 		{
 		  moveLog[i] = Animal.moveOutput;
-		  riverLog[i] = anim.currentRiverInfo();
+		  riverLog[i] = anim.toString();
 		  anim.moveAll();
 		}
 		
@@ -30,7 +41,7 @@ public class Proj1App
 		{
 			fullLog += "Day " + (i + 1) + "\n\n----Movement/Encounters Log----\n\n" + moveLog[i] + 
 										  "\n---------River Snapshot---------\n\n" + riverLog[i] +  
-					                      "\n-----------------------------\n\n";
+					                      "\n---------------------------------------------------\n\n";
 		}
 		
 		// Main menu
@@ -89,7 +100,7 @@ public class Proj1App
 				break;
 				
 			case 2: // Full log option
-				JTextArea text2 = new JTextArea(50,40);
+				JTextArea text2 = new JTextArea(50,35);
 				JScrollPane scroll2 = new JScrollPane(text2);
 				text2.setText(fullLog);
 				JOptionPane.showMessageDialog(
