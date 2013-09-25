@@ -51,6 +51,20 @@ public class ArrayStack<E> implements StackADT<E>
 			top++;
 			contents[top] = item;
 		}
+		else
+			expandCapacity(item);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void expandCapacity(E item) {
+
+		E[] contents2 = (E[]) (new Object[contents.length*2]);
+
+		for(int i=0; i< contents.length; i++ )
+			contents2[i] = contents[i];
+			
+		contents = contents2;
+		this.push(item);
 	}
 
 	/**
@@ -111,12 +125,17 @@ public class ArrayStack<E> implements StackADT<E>
 	public int search(E target)
 	{
 		int found = -1;
-		
+
 		for(int i = top; i>-1;i--)
 			if(contents[i].equals(target))
 				found = top - i + 1;
-		
+
 		return found;
+	}
+
+	public int getArrayLength()
+	{
+		return contents.length;
 	}
 
 	/**

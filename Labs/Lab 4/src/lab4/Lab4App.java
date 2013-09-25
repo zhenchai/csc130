@@ -64,35 +64,51 @@ public class Lab4App {
 		anotherStack.push(new Card(1));
 		System.out.println("\nanotherStack now contains: \n" + anotherStack.toString());
 		
-		
-		System.out.println("\nThe thirdStack now contains: \n" + anotherStack.toString());
-		
-		
-		
-		
-		if (theStack.size() > anotherStack.size())
+		if (theStack.size() >= anotherStack.size())
 		{
-			for(int i = theStack.size(); i > -1; i--)
+			while(!anotherStack.isEmpty())
 			{
 				thirdStack.push(theStack.pop());
 				thirdStack.push(anotherStack.pop());
 			}
 			
+			while(!theStack.isEmpty())
+				thirdStack.push(theStack.pop());
 		}
+	
 		else
 		{
-			for(int i = anotherStack.size(); i > -1; i--)
+			while(!theStack.isEmpty())
 			{
-				try
-				{			
-					thirdStack.push(anotherStack.pop());
-					thirdStack.push(theStack.pop());
-				}
-				catch(StackException e)
-				{
-					
-				}
-			}				
+				thirdStack.push(anotherStack.pop());
+				thirdStack.push(theStack.pop());
 			}
+			while(!anotherStack.isEmpty())
+				thirdStack.push(anotherStack.pop());
 		}
+	
+		System.out.println("\nThe thirdStack now contains: \n" + thirdStack.toString());
+		
+		Card[] theCards = new Card[thirdStack.size()];
+		
+		System.out.println("The following cards were removed and stored in the Card array");
+
+		for(int i=0; i<theCards.length;i++ )
+		{
+			theCards[i] = thirdStack.pop();
+			System.out.println(theCards[i].toString());
+		}
+		
+		System.out.println("\nChallenge");
+		ArrayStack<Card> chalStack = new ArrayStack<Card>(2);
+		
+		System.out.println("chalStack's size is: " + chalStack.getArrayLength());
+		chalStack.push(new Card(1));
+		chalStack.push(new Card(2));
+		System.out.println(chalStack.toString());
+		chalStack.push(new Card(3));
+		System.out.println("chalStack's size is: " + chalStack.getArrayLength());
+		System.out.println(chalStack.toString());
+
+	}
 }
