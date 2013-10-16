@@ -6,7 +6,7 @@ import exceptionclasses.*;
  *
  * <p>Description: Defines the properties and behaviors of a linked queue.</p>
  *
- * @author your names here
+ * @author Marvin Yan, Jobar Saddler
  */
 public class LinkedQueue<E> implements QueueADT<E>
 {

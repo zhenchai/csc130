@@ -3,9 +3,10 @@ import exceptionclasses.*;
 import queues.*;
 
 /**
- * Title:
+ * Title: Lab6App
  * 
- * Description:
+ * Description: Tests the LinkedQueue class's methods, primarily
+ * the enqueue, dequeue, search, removeLast, and toString methods.
  * 
  * @author Marvin Yan, Jobar Saddler
  */
