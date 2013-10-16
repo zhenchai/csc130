@@ -28,15 +28,15 @@ public class Card
 			value = 13;
 		suitNumber = num / 13;
 		if (suitNumber == 0)
-			suit = new String("clubs");
+			suit = "clubs";
 		else if (suitNumber == 1)
-			suit = new String("diamonds");
+			suit = "diamonds";
 		else if (suitNumber == 2)
-			suit = new String("hearts");
+			suit = "hearts";
 		else if (suitNumber == 3)
-			suit = new String("spades");
+			suit = "spades";
 		else
-			suit = new String("ERROR");
+			suit = "ERROR";
 	}
 
 	/**
@@ -74,9 +74,9 @@ public class Card
 	 * Creates and returns a Joker
 	 * @return a reference to a Card object with suit "joker"
 	 */
-	public Card createJoker() 
+	public static Card createJoker()
 	{
-		Card joker = new Card(1);
+		Card joker = new Card(-1);
 		joker.suit = "joker";
 		joker.value = -1;
 		return joker;
@@ -91,17 +91,17 @@ public class Card
 	public String toString()
 	{
 		if (value == -1)
-			return (new String("Joker"));
+			return "Joker";
 		else if (value == 1)
-			return (new String("Ace of " + suit));
+			return "Ace of " + suit;
 		else if (value == 11)
-			return (new String("Jack of " + suit));
+			return "Jack of " + suit;
 		else if (value == 12)
-			return (new String("Queen of " + suit));
+			return "Queen of " + suit;
 		else if (value == 13)
-			return (new String("King of " + suit));
+			return "King of " + suit;
 		else
-			return (new String(value + " of " + suit));
+			return value + " of " + suit;
 	}
 }
 
