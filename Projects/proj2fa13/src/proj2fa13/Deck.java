@@ -63,7 +63,7 @@ public class Deck
     /**
      * shuffleDeck method -- places the cards in the deck in a random order
      */
-    public void shuffleDeck() throws DeckException
+    public void shuffleDeck()
     {
         Card temp;
         int ran1, ran2;
@@ -87,7 +87,7 @@ public class Deck
      * of cards in the deck by 1
      * @return a reference to the Card being dealt
      */
-    public Card dealCard() throws DeckException
+    public Card dealCard()
     {
 		if (numCards > 0) {
 			numCards--;
