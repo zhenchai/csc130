@@ -78,7 +78,6 @@ public class Card
 	{
 		Card joker = new Card(-1);
 		joker.suit = "joker";
-		joker.value = -1;
 		return joker;
 	}
 	
