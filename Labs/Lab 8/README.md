@@ -1,7 +1,7 @@
-#Lab 8 - The ArrayIndexListClass
+#Lab 8 - The ArrayIndexList Class
 
 **Goals**
 
-- To review peer code and provide feedback
-- To implement the methods defined in the QueueADT interface using an array as the data structure in which data is stored
-- To gain a better understanding of how the circular array queue works
+- Peer review code and provide feedback
+- Practice tracing, testing and debugging methods
+- Gain a better understanding of the ArrayIndexList class
