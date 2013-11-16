@@ -2,20 +2,18 @@ package project3fa13;
 
 /**
  * Title: Stock.java
- *
- * Description: A Stock object will store a quantity, price, and name.
- * Accessors, mutators, and a toString are defined as well as an equals
- * method which overrides the equals method defined in the Object class.
- *
+ * Description: A Stock object will store a quantity, price, and name. Accessors, mutators, and a toString are defined
+ * as well as an equals method which overrides the equals method defined in the Object class.
  */
-public class Stock {
+public class Stock
+{
     private int sharesOwned;
     private double purchasePrice;
     private String tickerSym;
 
     /**
-     * parameterized constructor --
-     * Creates a Stock object with specified values
+     * parameterized constructor -- Creates a Stock object with specified values
+     *
      * @param sharesOwned   quantity of stock owned
      * @param purchasePrice price at which the stock was bought
      * @param tickerSym     ticker symbol of stock
@@ -28,8 +26,8 @@ public class Stock {
     }
 
     /**
-     * getSharesOwned --
-     * Returns the number of shares owned.
+     * getSharesOwned -- Returns the number of shares owned.
+     *
      * @return sharesOwned
      */
     public int getSharesOwned()
@@ -38,8 +36,8 @@ public class Stock {
     }
 
     /**
-     * getPurchasePrice --
-     * Returns the price at which the stock was bought.
+     * getPurchasePrice -- Returns the price at which the stock was bought.
+     *
      * @return purchasePrice
      */
     public double getPurchasePrice()
@@ -48,8 +46,8 @@ public class Stock {
     }
 
     /**
-     * getTickerSymbol --
-     * Returns the tickerSymbol of the stock
+     * getTickerSymbol -- Returns the tickerSymbol of the stock
+     *
      * @return tickerSym
      */
     public String getTickerSymbol()
@@ -58,8 +56,7 @@ public class Stock {
     }
 
     /**
-     * setSharesOwned --
-     * Changes the number of shares owned.
+     * setSharesOwned -- Changes the number of shares owned.
      */
     public void setSharesOwned(int quantity)
     {
@@ -67,8 +64,8 @@ public class Stock {
     }
 
     /**
-     * toString --
-     * Returns the ticker symbol, shares owned, and purchase price
+     * toString -- Returns the ticker symbol, shares owned, and purchase price
+     *
      * @return a string containing tickerSym, sharesOwned, and purchasePrice
      */
     public String toString()
