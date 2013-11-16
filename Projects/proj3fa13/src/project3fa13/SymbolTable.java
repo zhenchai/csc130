@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 /**
- * Title: The SymbolTable Class
+ * Title: SymbolTable.java
  *
  * Description: Creates a symbol table using information read from a file
  * and allows for ticker symbol lookup.
@@ -15,6 +15,12 @@ import java.util.Scanner;
 public class SymbolTable {
     private ArrayIndexList<SymbolPair> symbolPairs;
 
+    /**
+     * parameterized constructor --
+     * Scans specified file and creates a SymbolTable object.
+     * @param symbolDataFile file containing ticker symbols and company names
+     * @throws FileNotFoundException if file is not found
+     */
     public SymbolTable(File symbolDataFile) throws FileNotFoundException
     {
         Scanner fileScan = new Scanner(symbolDataFile);
@@ -29,6 +35,12 @@ public class SymbolTable {
         }
     }
 
+    /**
+     * findCompany --
+     * Returns the ticker symbol's company name
+     * @param symbol the ticker symbol to be searched
+     * @return the respective company name
+     */
     public String findCompany(String symbol)
     {
         for (int i = 0; i < symbolPairs.size(); i++)

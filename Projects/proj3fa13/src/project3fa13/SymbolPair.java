@@ -1,7 +1,7 @@
 package project3fa13;
 
 /**
- * Title: The SymbolPair Class
+ * Title: SymbolPair.java
  *
  * Description: Contains a constructor for creating symbol pairs and
  * accessor methods for retrieving the stored strings.
