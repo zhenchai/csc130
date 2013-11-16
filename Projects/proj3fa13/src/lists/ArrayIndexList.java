@@ -78,7 +78,7 @@ public class ArrayIndexList<E> implements IndexListADT<E>
         }
         else
         {
-            throw new IndexOutOfBoundsException("Could not add item outside of bounds.");
+            throw new IndexOutOfBoundsException("Could not add item outside of bounds!");
         }
     }
 
@@ -97,7 +97,7 @@ public class ArrayIndexList<E> implements IndexListADT<E>
         }
         else
         {
-            throw new IndexOutOfBoundsException("Could not get index out of bounds.");
+            throw new IndexOutOfBoundsException("Could not get index out of bounds!");
         }
     }
 
@@ -106,11 +106,26 @@ public class ArrayIndexList<E> implements IndexListADT<E>
      *
      * @param pos the position where the item to be removed is stored
      * @return a reference to the item removed from index pos
-     * @throws IndexOutOfBoundsException if pos is invalid; pos is expected to be in the range 0-(count-1)
+     * @throws IndexOutOfBoundsException if pos is invalid;
+     * pos is expected to be in the range 0-(count-1)
      */
     public E remove(int pos)
     {
-        return null;
+        if (pos >= 0 && pos < count)
+        {
+            E removedItem = contents[pos];
+            for(int i = pos; i + 1 < contents.length && contents[i + 1] != null; i++)
+            {
+                contents[i] = contents[i + 1];
+            }
+            contents[count - 1] = null;
+            count--;
+            return removedItem;
+        }
+        else
+        {
+            throw new IndexOutOfBoundsException("Invalid position!");
+        }
     }
 
     /**

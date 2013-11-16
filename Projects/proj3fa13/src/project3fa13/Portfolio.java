@@ -1,5 +1,6 @@
 package project3fa13;
 
+import exceptionclasses.InvalidSaleException;
 import lists.ArrayIndexList;
 
 /**
@@ -24,11 +25,52 @@ public class Portfolio
 
     public void processTransaction(char action, int quantity, double price, String symbol)
     {
-
+        // action = 'b' or 's', quantity = #, price = #, symbol = ""
+        // note to self: '' -> char, "" -> string
+        Stock current;
+        boolean found = false;
+        if (action == 'b')
+        {
+            for(int i = 0; i < stocks.size(); i++)
+            {
+                current = stocks.get(i);
+                // update existing stock quantity if price matches
+                if ((current.getTickerSymbol() == symbol) && (current.getPurchasePrice() == price))
+                {
+                    current.setSharesOwned(quantity + current.getSharesOwned());
+                    found = true;
+                }
+            }
+            // otherwise add as new stock
+            if (!found)
+            {
+                stocks.add(stocks.size(), new Stock(quantity, price, symbol));
+            }
+            // portfolio value or capital gain/loss?
+            worth += quantity * price;
+        }
+        else if (action == 's')
+        {
+            /*
+            for(int i = 0; i < stocks.size(); i++)
+            {
+                current = stocks.get(i);
+                if (current.getTickerSymbol() == symbol)
+                {
+                    current.setSharesOwned(current.getSharesOwned() - quantity);
+                    found = true;
+                }
+            } */
+        }
+        else
+        {
+            throw new InvalidSaleException("Invalid transaction type!");
+        }
     }
 
     public String toString()
     {
-        return null;
+        String output = "";
+        return output;
     }
 }

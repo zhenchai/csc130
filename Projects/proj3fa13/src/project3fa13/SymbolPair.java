@@ -19,7 +19,7 @@ public class SymbolPair
     public SymbolPair(String tickerSym, String companyName)
     {
         this.tickerSym = tickerSym;
-        this.companyName = tickerSym;
+        this.companyName = companyName;
     }
 
     /**

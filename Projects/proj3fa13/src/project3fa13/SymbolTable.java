@@ -22,6 +22,7 @@ public class SymbolTable
      */
     public SymbolTable(File symbolDataFile) throws FileNotFoundException
     {
+        symbolPairs = new ArrayIndexList<SymbolPair>();
         Scanner fileScan = new Scanner(symbolDataFile);
         String[] splitLine;
         while (fileScan.hasNextLine())
