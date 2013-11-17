@@ -91,7 +91,7 @@ public class ArrayIndexList<E> implements IndexListADT<E>
      */
     public E get(int pos)
     {
-        if (pos <= count && pos >= 0)
+        if (pos >= 0 && pos <= count)
         {
             return contents[pos];
         }

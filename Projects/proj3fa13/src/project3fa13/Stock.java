@@ -2,8 +2,7 @@ package project3fa13;
 
 /**
  * Title: Stock.java
- * Description: A Stock object will store a quantity, price, and name. Accessors, mutators, and a toString are defined
- * as well as an equals method which overrides the equals method defined in the Object class.
+ * Description: A Stock object will store a quantity, price, and name. Accessors, mutators, and a toString are defined.
  */
 public class Stock
 {
@@ -70,6 +69,6 @@ public class Stock
      */
     public String toString()
     {
-        return tickerSym + " - " + "Quantity: " + sharesOwned + ", Purchase Price: " + purchasePrice;
+        return tickerSym + " - " + sharesOwned + " shares at " + purchasePrice;
     }
 }

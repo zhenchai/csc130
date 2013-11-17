@@ -16,61 +16,64 @@ public class Portfolio
     /**
      * parameterized constructor --
      * Creates a Portfolio object with specified SymbolTable
+     *
      * @param symbols a SymbolTable object
      */
     public Portfolio(SymbolTable symbols)
     {
+        stocks = new ArrayIndexList<Stock>();
         this.symbols = symbols;
     }
 
     public void processTransaction(char action, int quantity, double price, String symbol)
     {
-        // action = 'b' or 's', quantity = #, price = #, symbol = ""
+        String transactionInfo = "";
+        transactionInfo +=
+            "+-----TRANSACTION IN PROGRESS-----+\n" +
+            "|                                 |\n" +
+            "+     Pre-transaction Portfolio   +\n" +
+            toString() +
+            "+                                 +\n" +
+            "|                                 |\n";
         // note to self: '' -> char, "" -> string
-        Stock current;
-        boolean found = false;
         if (action == 'b')
         {
-            for(int i = 0; i < stocks.size(); i++)
-            {
-                current = stocks.get(i);
-                // update existing stock quantity if price matches
-                if ((current.getTickerSymbol() == symbol) && (current.getPurchasePrice() == price))
-                {
-                    current.setSharesOwned(quantity + current.getSharesOwned());
-                    found = true;
-                }
-            }
-            // otherwise add as new stock
-            if (!found)
-            {
-                stocks.add(stocks.size(), new Stock(quantity, price, symbol));
-            }
-            // portfolio value or capital gain/loss?
+            stocks.add(stocks.size(), new Stock(quantity, price, symbol));
+            // clarify meaning of worth...
             worth += quantity * price;
+
+            // output
+            transactionInfo +=
+                "+---------------BUY---------------+\n" +
+                symbols.findCompany(symbol) + "(" + symbol + ")\n" +
+                "Shares Bought: " + quantity + "\n" +
+                "Price: " + price + "\n" +
+                "+---------------------------------+\n" +
+                "|                                 |\n" +
+                "+    Post-transaction Portfolio   +\n" +
+                toString() +
+                "+                                 +\n" +
+                "|                                 |\n" +
+                "+---------END TRANSACTION---------+\n";
+
         }
         else if (action == 's')
         {
-            /*
-            for(int i = 0; i < stocks.size(); i++)
-            {
-                current = stocks.get(i);
-                if (current.getTickerSymbol() == symbol)
-                {
-                    current.setSharesOwned(current.getSharesOwned() - quantity);
-                    found = true;
-                }
-            } */
         }
         else
         {
             throw new InvalidSaleException("Invalid transaction type!");
         }
+        System.out.println(transactionInfo);
     }
 
     public String toString()
     {
         String output = "";
+        for (int i = 0; i < stocks.size(); i++)
+        {
+            output += stocks.get(i).toString() + "\n";
+        }
         return output;
     }
 }
