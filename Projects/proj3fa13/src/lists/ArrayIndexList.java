@@ -91,7 +91,7 @@ public class ArrayIndexList<E> implements IndexListADT<E>
      */
     public E get(int pos)
     {
-        if (pos < 0 && pos >= count)
+        if (pos < 0 || pos >= count)
         {
             throw new IndexOutOfBoundsException("Could not get index out of bounds!");
         }
@@ -109,7 +109,7 @@ public class ArrayIndexList<E> implements IndexListADT<E>
      */
     public E remove(int pos)
     {
-        if (pos < 0 && pos >= count)
+        if (pos < 0 || pos >= count)
         {
             throw new IndexOutOfBoundsException("Invalid removal position!");
         }
@@ -134,7 +134,7 @@ public class ArrayIndexList<E> implements IndexListADT<E>
      */
     public E set(int pos, E newItem)
     {
-        if (pos < 0 && pos >= count)
+        if (pos < 0 || pos >= count)
         {
             throw new IndexOutOfBoundsException("Invalid setting position!");
         }
