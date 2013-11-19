@@ -62,12 +62,16 @@ public class ArrayIndexList<E> implements IndexListADT<E>
      */
     public void add(int pos, E item)
     {
+        if (pos < 0 || pos > count)
+        {
+            throw new IndexOutOfBoundsException("Could not add item outside of bounds!");
+        }
+
         if (count == contents.length)
         {
             expandCapacity();
         }
-
-        if (pos >= 0 && pos <= count)
+        else
         {
             for (int i = count; i > pos; i--)
             {
@@ -75,10 +79,6 @@ public class ArrayIndexList<E> implements IndexListADT<E>
             }
             contents[pos] = item;
             count++;
-        }
-        else
-        {
-            throw new IndexOutOfBoundsException("Could not add item outside of bounds!");
         }
     }
 
@@ -91,14 +91,12 @@ public class ArrayIndexList<E> implements IndexListADT<E>
      */
     public E get(int pos)
     {
-        if (pos >= 0 && pos <= count)
-        {
-            return contents[pos];
-        }
-        else
+        if (pos < 0 && pos >= count)
         {
             throw new IndexOutOfBoundsException("Could not get index out of bounds!");
         }
+
+        return contents[pos];
     }
 
     /**
@@ -111,21 +109,19 @@ public class ArrayIndexList<E> implements IndexListADT<E>
      */
     public E remove(int pos)
     {
-        if (pos >= 0 && pos < count)
+        if (pos < 0 && pos >= count)
         {
-            E removedItem = contents[pos];
-            for(int i = pos; i + 1 < contents.length && contents[i + 1] != null; i++)
-            {
-                contents[i] = contents[i + 1];
-            }
-            contents[count - 1] = null;
-            count--;
-            return removedItem;
+            throw new IndexOutOfBoundsException("Invalid removal position!");
         }
-        else
+
+        E removedItem = contents[pos];
+        for(int i = pos; i + 1 < contents.length && contents[i + 1] != null; i++)
         {
-            throw new IndexOutOfBoundsException("Invalid position!");
+            contents[i] = contents[i + 1];
         }
+        contents[count - 1] = null;
+        count--;
+        return removedItem;
     }
 
     /**
@@ -138,7 +134,14 @@ public class ArrayIndexList<E> implements IndexListADT<E>
      */
     public E set(int pos, E newItem)
     {
-        return null;
+        if (pos < 0 && pos >= count)
+        {
+            throw new IndexOutOfBoundsException("Invalid setting position!");
+        }
+
+        E temp = contents[pos];
+        contents[pos] = newItem;
+        return temp;
     }
 
     /**

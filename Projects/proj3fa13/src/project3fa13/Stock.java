@@ -1,8 +1,10 @@
 package project3fa13;
 
+import java.text.DecimalFormat;
+
 /**
  * Title: Stock.java
- * Description: A Stock object will store a quantity, price, and name. Accessors, mutators, and a toString are defined.
+ * Description: A Stock object will store a quantity, price, and name. Accessors, mutators, and toString are defined.
  */
 public class Stock
 {
@@ -54,21 +56,20 @@ public class Stock
         return tickerSym;
     }
 
-    /**
-     * setSharesOwned -- Changes the number of shares owned.
-     */
+    /** setSharesOwned -- Changes the number of shares owned. */
     public void setSharesOwned(int quantity)
     {
         sharesOwned = quantity;
     }
 
     /**
-     * toString -- Returns the ticker symbol, shares owned, and purchase price
+     * toString -- Returns the shares owned, and purchase price
      *
      * @return a string containing tickerSym, sharesOwned, and purchasePrice
      */
     public String toString()
     {
-        return tickerSym + " - " + sharesOwned + " shares at " + purchasePrice;
+        DecimalFormat df = new DecimalFormat("$###,##0.00");
+        return sharesOwned + " shares at " + df.format(purchasePrice);
     }
 }

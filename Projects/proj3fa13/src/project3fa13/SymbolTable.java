@@ -31,7 +31,7 @@ public class SymbolTable
              First word = ticker symbol, rest of line = company name
              */
             splitLine = fileScan.nextLine().split(" ", 2);
-            symbolPairs.add(symbolPairs.size(), (new SymbolPair(splitLine[0], splitLine[1])));
+            symbolPairs.add(symbolPairs.size(), (new SymbolPair(splitLine[0], splitLine[1].trim())));
         }
     }
 
@@ -51,6 +51,6 @@ public class SymbolTable
                 return pair.getCompanyName();
             }
         }
-        return "Invalid ticker symbol.";
+        return "Ticker symbol not recognized!";
     }
 }

@@ -3,9 +3,12 @@ package project3fa13;
 import exceptionclasses.InvalidSaleException;
 import lists.ArrayIndexList;
 
+import java.text.*;
+
 /**
- * Created with IntelliJ IDEA. User: Marvin Date: 11/16/13 Time: 12:10 AM To change this template use File | Settings |
- * File Templates.
+ * Title: Portfolio.java
+ * Description: Contains the methods for creating a Portfolio object, processing transactions and displaying the
+ * contents of the portfolio.
  */
 public class Portfolio
 {
@@ -25,55 +28,82 @@ public class Portfolio
         this.symbols = symbols;
     }
 
+    /**
+     * processTransaction -- updates the contents and order of the stocks array when shares are bought or sold by
+     * updating or removing array contents
+     *
+     * @param action   the type of transaction (buy or sell)
+     * @param quantity the number of shares bought or sold
+     * @param price    the price per share of the stock
+     * @param symbol   the ticker symbol of the stock
+     */
     public void processTransaction(char action, int quantity, double price, String symbol)
     {
-        String transactionInfo = "";
-        transactionInfo +=
-            "+-----TRANSACTION IN PROGRESS-----+\n" +
-            "|                                 |\n" +
-            "+     Pre-transaction Portfolio   +\n" +
-            toString() +
-            "+                                 +\n" +
-            "|                                 |\n";
-        // note to self: '' -> char, "" -> string
         if (action == 'b')
         {
             stocks.add(stocks.size(), new Stock(quantity, price, symbol));
-            // clarify meaning of worth...
-            worth += quantity * price;
-
-            // output
-            transactionInfo +=
-                "+---------------BUY---------------+\n" +
-                symbols.findCompany(symbol) + "(" + symbol + ")\n" +
-                "Shares Bought: " + quantity + "\n" +
-                "Price: " + price + "\n" +
-                "+---------------------------------+\n" +
-                "|                                 |\n" +
-                "+    Post-transaction Portfolio   +\n" +
-                toString() +
-                "+                                 +\n" +
-                "|                                 |\n" +
-                "+---------END TRANSACTION---------+\n";
-
-        }
-        else if (action == 's')
-        {
+            worth -= quantity * price;
         }
         else
         {
-            throw new InvalidSaleException("Invalid transaction type!");
+            if (stocks.size() == 0)
+            {
+                throw new InvalidSaleException("Portfolio is empty!");
+            }
+            // determine total number of shares of the stock
+            int totalQuantity = 0;
+            for (int i = 0; i < stocks.size(); i++)
+            {
+                Stock currentStock = stocks.get(i);
+                if (currentStock.getTickerSymbol().equals(symbol))
+                {
+                    totalQuantity += currentStock.getSharesOwned();
+                }
+            }
+            // throw ISE if trying to sell more shares than owned
+            if (quantity > totalQuantity)
+            {
+                throw new InvalidSaleException("Could not sell " + quantity + " shares of " + symbols.findCompany
+                        (symbol) + ":\nInsufficient shares for sale!\n");
+            }
+
+            // remove shares of one price until 0 before checking for next price
+            int tempQuantity = quantity;
+            for (int i = 0; i < stocks.size(); i++)
+            {
+                Stock currentStock = stocks.get(i);
+                if (currentStock.getTickerSymbol().equals(symbol))
+                {
+                    while (tempQuantity != 0 && currentStock.getSharesOwned() != 0)
+                    {
+                        currentStock.setSharesOwned(currentStock.getSharesOwned() - 1);
+                        tempQuantity--;
+                    }
+                    if (currentStock.getSharesOwned() == 0)
+                    {
+                        stocks.remove(i);
+                        i--; // compensate for array shift
+                    }
+                }
+            }
+            worth += quantity * price;
         }
-        System.out.println(transactionInfo);
     }
 
+    /**
+     * toString -- prints out the contents of stocks in the correct order
+     *
+     * @return a string containing the contents of stocks
+     */
     public String toString()
     {
-        String output = "";
+        DecimalFormat df = new DecimalFormat("$###,##0.00");
+        String output = "\n";
         for (int i = 0; i < stocks.size(); i++)
         {
-            output += stocks.get(i).toString() + "\n";
+            output += symbols.findCompany(stocks.get(i).getTickerSymbol()) + "\n" +
+                    stocks.get(i).toString() + "\n\n";
         }
-        return output;
+        return output + "\n" + "Net profit: " + df.format(worth) + "\n";
     }
 }
