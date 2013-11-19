@@ -69,21 +69,20 @@ public class Portfolio
 
             // remove shares of one price until 0 before checking for next price
             int tempQuantity = quantity;
-            for (int i = 0; i < stocks.size(); i++)
+            for (int i = 0; i < stocks.size() && tempQuantity != 0; i++)
             {
                 Stock currentStock = stocks.get(i);
-                if (currentStock.getTickerSymbol().equals(symbol))
+                int currentStockQuantity = currentStock.getSharesOwned();
+                if (tempQuantity >= currentStockQuantity)
                 {
-                    while (tempQuantity != 0 && currentStock.getSharesOwned() != 0)
-                    {
-                        currentStock.setSharesOwned(currentStock.getSharesOwned() - 1);
-                        tempQuantity--;
-                    }
-                    if (currentStock.getSharesOwned() == 0)
-                    {
-                        stocks.remove(i);
-                        i--; // compensate for array shift
-                    }
+                	tempQuantity -= currentStockQuantity;
+                	stocks.remove(i);
+                	i--;
+                }
+                else
+                {
+                	currentStock.setSharesOwned(currentStock.getSharesOwned() - tempQuantity);
+                	tempQuantity = 0;
                 }
             }
             worth += quantity * price;
