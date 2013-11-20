@@ -115,11 +115,14 @@ public class ArrayIndexList<E> implements IndexListADT<E>
         }
 
         E removedItem = contents[pos];
-        for(int i = pos; i + 1 < contents.length && contents[i + 1] != null; i++)
+        for(int i = pos; i < count - 1; i++)
         {
             contents[i] = contents[i + 1];
         }
-        contents[count - 1] = null;
+        if (pos == count - 1)
+	{
+	    contents[count - 1] = null;
+  	}
         count--;
         return removedItem;
     }
