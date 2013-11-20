@@ -119,10 +119,6 @@ public class ArrayIndexList<E> implements IndexListADT<E>
         {
             contents[i] = contents[i + 1];
         }
-        if (pos == count - 1)
-	{
-	    contents[count - 1] = null;
-  	}
         count--;
         return removedItem;
     }
