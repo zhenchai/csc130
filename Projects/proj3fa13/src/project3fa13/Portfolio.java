@@ -42,7 +42,6 @@ public class Portfolio
         if (action == 'b')
         {
             stocks.add(stocks.size(), new Stock(quantity, price, symbol));
-            worth -= quantity * price;
         }
         else
         {
@@ -71,23 +70,24 @@ public class Portfolio
             int tempQuantity = quantity;
             for (int i = 0; i < stocks.size() && tempQuantity != 0; i++)            
             {                
-            	Stock currentStock = stocks.get(i);                
-            	if (currentStock.getTickerSymbol().equals(symbol))               
-            	{       
-            		if (tempQuantity >= currentStock.getSharesOwned())
+            	Stock currentStock = stocks.get(i);
+                if (currentStock.getTickerSymbol().equals(symbol))
+            	{
+                    if (tempQuantity >= currentStock.getSharesOwned())
             		{
-            			tempQuantity -= currentStock.getSharesOwned();
-            			stocks.remove(i);
+                        tempQuantity -= currentStock.getSharesOwned();
+                        worth += currentStock.getSharesOwned() * (price - currentStock.getPurchasePrice());
+                        stocks.remove(i);
             			i--; // compensate for array shift
             		}
             		else
             		{
-            			currentStock.setSharesOwned(currentStock.getSharesOwned() - tempQuantity);
+                        worth += tempQuantity * (price - currentStock.getPurchasePrice());
+                        currentStock.setSharesOwned(currentStock.getSharesOwned() - tempQuantity);
             			tempQuantity = 0;
             		}       
             	}       
             }
-            worth += quantity * price;
         }
     }
 
@@ -105,6 +105,6 @@ public class Portfolio
             output += symbols.findCompany(stocks.get(i).getTickerSymbol()) + "\n" +
                     stocks.get(i).toString() + "\n\n";
         }
-        return output + "\n" + "Net profit: " + df.format(worth) + "\n";
+        return output + "\n" + "Profit: " + df.format(worth) + "\n";
     }
 }

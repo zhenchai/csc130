@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * Title: Proj3App.java
  * Description: The application class creates a SymbolTable object and a Portfolio object. Transactions in
- * "stockdata.txt" are processed.
+ * "stockdata.txt" are processed and displayed.
  */
 public class Proj3App
 {
