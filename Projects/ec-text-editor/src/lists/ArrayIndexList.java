@@ -141,8 +141,10 @@ public class ArrayIndexList<E> implements IndexListADT<E>
         return temp;
     }
 
-    /** expandCapacity -- creates a new array to store the contents of this list with twice the capacity of the old
-     * one. */
+    /**
+     * expandCapacity -- creates a new array to store the contents of this list with twice the capacity of the old
+     * one.
+     */
     @SuppressWarnings("unchecked")
     protected void expandCapacity()
     {

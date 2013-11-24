@@ -55,7 +55,7 @@ public class Editor
      */
     public void paste(char c)
     {
-        if (theCursor.getPosition() == 0 && theString.isEmpty())
+        if (theString.isEmpty() && theCursor.getPosition() == 0)
         {
             theString.add(theCursor.getPosition(), c);
         }
