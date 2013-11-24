@@ -13,7 +13,7 @@ public class Editor
 {
     private ArrayIndexList<Character> theString;
     private Cursor theCursor;
-
+    
     /** default constructor */
     public Editor()
     {
@@ -24,7 +24,7 @@ public class Editor
     /** left -- Move cursor left one character. */
     public void left()
     {
-        if (theCursor.getPosition() != 0)
+        if (theCursor.getPosition() > 0)
         {
             theCursor.decrement();
         }
@@ -33,7 +33,7 @@ public class Editor
     /** right -- Move cursor right one character. */
     public void right()
     {
-        if (theCursor.getPosition() < theString.size() - 1)
+        if (theCursor.getPosition() < theString.size())
         {
             theCursor.increment();
         }
@@ -42,9 +42,9 @@ public class Editor
     /** cut -- Delete the character right of the cursor. */
     public void cut()
     {
-        if (theCursor.getPosition() != theString.size() - 1 && theString.size() != 0)
+        if (theCursor.getPosition() != theString.size() && theString.size() != 0)
         {
-            theString.remove(theCursor.getPosition() + 1);
+            theString.remove(theCursor.getPosition());
         }
     }
 
@@ -61,7 +61,7 @@ public class Editor
         }
         else
         {
-            theString.add(theCursor.getPosition() + 1, c);
+            theString.add(theCursor.getPosition(), c);
         }
     }
 
@@ -73,16 +73,19 @@ public class Editor
     public String toString()
     {
         String output = "";
+        
         for (int i = 0; i < theString.size(); i++)
         {
-            if (theCursor.getPosition() != i)
+            if (theCursor.getPosition() == i)
             {
-                output += theString.get(i);
+                output += "|";
             }
-            else
-            {
-                output += "[" + theString.get(i) + "]";
-            }
+            output += theString.get(i);
+        }
+        
+        if (theCursor.getPosition() == theString.size())
+        {
+            output += "|";
         }
         return output + "\n" + theCursor.toString();
     }
