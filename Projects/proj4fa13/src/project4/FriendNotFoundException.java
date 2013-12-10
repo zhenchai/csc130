@@ -2,7 +2,7 @@ package project4;
 
 /**
  * Title: FriendNotFoundException.java
- * Description: Exception class used by the SFacebook class.
+ * Description: Exception class used when a Person is not found.
  *
  * @author Marvin Yan
  */

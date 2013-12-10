@@ -2,7 +2,8 @@ package project4;
 
 /**
  * Title: Person.java
- * Description:
+ * Description: A Person object stores a name, security level, and a friend list. The friend list may accessed and
+ * modified.
  *
  * @author Marvin
  */
@@ -12,6 +13,13 @@ public class Person
     private int securityLevel;
     private FriendList friends;
 
+    /**
+     * parameterized constructor - Initializes name and security to the specified argument values and initializes a
+     * FriendList for the Person.
+     *
+     * @param name          String name of the Person
+     * @param securityLevel 1 for visibility of friends of friends, 0 for immediate friends only
+     */
     public Person(String name, int securityLevel)
     {
         this.name = name;
@@ -19,31 +27,62 @@ public class Person
         friends = new FriendList();
     }
 
+    /**
+     * getName - Returns the Person's name.
+     *
+     * @return name of the Person
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * addFriend - Adds a Person to the friend list.
+     *
+     * @param newFriend the Person to be friended
+     */
     public void addFriend(Person newFriend)
     {
         friends.addToFront(newFriend);
     }
 
+    /**
+     * unfriend - Removes a Person from the friend list.
+     *
+     * @param target the Person to be unfriended
+     */
     public void unfriend(Person target)
     {
         friends.remove(target);
     }
 
+    /**
+     * friendsWith - Checks if target is in the friend list.
+     *
+     * @param target the Person to be checked
+     * @return true if friends, false otherwise
+     */
     public boolean friendsWith(Person target)
     {
         return friends.search(target);
     }
 
+    /**
+     * getFriends - Returns the friends of a Person.
+     *
+     * @return the friends of a Person
+     */
     public String getFriends()
     {
         return friends.listOfFriends();
     }
 
+    /**
+     * getAllFriends - Returns the friends and/or friends of friends of a Person depending on security level.
+     *
+     * @return the immediate friends only if level 0, otherwise includes friends of friends
+     */
     public String getAllFriends()
     {
         if (securityLevel == 1)

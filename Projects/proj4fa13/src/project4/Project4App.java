@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 /**
  * Title: Project4App.java
- * Description:
+ * Description: The application class creates an SFacebook object. Commands in "facebookData.txt" are processed and
+ * displayed.
  *
  * @author Marvin
  */
@@ -19,10 +20,10 @@ public class Project4App
 
         String[] splitLine = sc.nextLine().split(" ", 3);
         String command = splitLine[0];
-
+        String personA;
         while (!command.equals("X"))
         {
-            String personA = splitLine[1];
+            personA = splitLine[1];
             if (command.equals("P"))
             {
                 System.out.println("Input: " + command + " " + personA + " " + splitLine[2]);
@@ -39,8 +40,7 @@ public class Project4App
                     facebook.friend(personA, splitLine[2]);
                     System.out.println(facebook.toString());
 
-                }
-                catch (FriendNotFoundException ex)
+                } catch (FriendNotFoundException ex)
                 {
                     System.out.println(ex.getMessage());
                 }
@@ -52,8 +52,7 @@ public class Project4App
                     System.out.println("Input: " + command + " " + personA + " " + splitLine[2]);
                     facebook.unfriend(personA, splitLine[2]);
                     System.out.println(facebook.toString());
-                }
-                catch (FriendNotFoundException ex)
+                } catch (FriendNotFoundException ex)
                 {
                     System.out.println(ex.getMessage());
                 }
@@ -64,8 +63,7 @@ public class Project4App
                 {
                     System.out.println("Input: " + command + " " + personA);
                     System.out.println(facebook.getFriends(personA) + "\n");
-                }
-                catch (FriendNotFoundException ex)
+                } catch (FriendNotFoundException ex)
                 {
                     System.out.println(ex.getMessage());
                 }
@@ -83,8 +81,7 @@ public class Project4App
                     {
                         System.out.println(personA + " and " + splitLine[2] + " are not friends.\n");
                     }
-                }
-                catch (FriendNotFoundException ex)
+                } catch (FriendNotFoundException ex)
                 {
                     System.out.println(ex.getMessage());
                 }
@@ -95,8 +92,7 @@ public class Project4App
                 {
                     System.out.println("Input: " + command + " " + personA);
                     System.out.println(facebook.getFriendsByLevel(personA));
-                }
-                catch (FriendNotFoundException ex)
+                } catch (FriendNotFoundException ex)
                 {
                     System.out.println(ex.getMessage());
                 }
