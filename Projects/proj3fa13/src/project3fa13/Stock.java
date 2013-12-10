@@ -70,6 +70,6 @@ public class Stock
     public String toString()
     {
         DecimalFormat df = new DecimalFormat("$###,##0.00");
-        return sharesOwned + " shares at " + df.format(purchasePrice);
+        return tickerSym + ": " + sharesOwned + " shares at " + df.format(purchasePrice);
     }
 }

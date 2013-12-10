@@ -4,6 +4,7 @@ package text_editor;
  * Title: Cursor.java
  *
  * Description: A Cursor object retains the current position of the cursor in the text editor.
+ * (glorified int variable IMO)
  *
  * @author Marvin Yan
  */

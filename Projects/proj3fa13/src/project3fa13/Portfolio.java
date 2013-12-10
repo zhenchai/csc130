@@ -100,10 +100,12 @@ public class Portfolio
     {
         DecimalFormat df = new DecimalFormat("$###,##0.00");
         String output = "\n";
+        String[] stocksToStringOutput;
         for (int i = 0; i < stocks.size(); i++)
         {
+            stocksToStringOutput = stocks.get(i).toString().split(" ", 2);
             output += symbols.findCompany(stocks.get(i).getTickerSymbol()) + "\n" +
-                    stocks.get(i).toString() + "\n\n";
+                    stocksToStringOutput[1] + "\n\n";
         }
         return output + "\n" + "Profit: " + df.format(worth) + "\n";
     }
